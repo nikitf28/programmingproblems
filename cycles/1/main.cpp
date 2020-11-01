@@ -25,10 +25,24 @@ int main()
 {
     int type = 0;
     int n = -1;
-    while (n != 1 && n != 2 && n != 3){
+
+    TryAgain:
+        n = -1;
         cout <<"Choose function (1 - 3):\n1. y = x^4\n2. y = tg(x)\n3. y = e^x\n";
-        cin >>n;
-    }
+        while (true){
+            if (!(cin >> n)){
+                cin.clear();
+                fflush(stdin);
+                n = -1;
+                cout <<"bla";
+                goto TryAgain;
+            }
+            if (n != 1 && n != 2 && n != 3){
+                goto TryAgain;
+            }
+            break;
+        }
+
 
     cout <<"Insert range to check\n";
     long double a = -1;
@@ -36,7 +50,8 @@ int main()
         cout << "error\n";
         cin.clear();
         fflush(stdin);
-        while (a <= 0){
+        a = -1;
+        if (a <= 0){
             cout <<"Insert range to check\n";
         }
     }
