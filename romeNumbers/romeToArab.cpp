@@ -48,12 +48,12 @@ bool validateRome(string rome){
             sameC = rome[i];
         }
     
-    
+        //cout <<"same "<<same <<endl;
         if (same > 1){
             if (same > 3 && isTen(sameC)){
                 return false;
             }    
-            if (same == 1 && !isTen(sameC)){
+            if (same > 1 && !isTen(sameC)){
                 return false;
             }
         }
@@ -67,6 +67,7 @@ int main(){
     bool F = true;
     string romeNumber;
     while (F){
+        cout <<"Insert rome number"<<endl;
         cin >>romeNumber;
         for (int i = 0; i < romeNumber.length(); i++){
             if (romeNumber[i] != 'I' and romeNumber[i] != 'V' and romeNumber[i] != 'X' and romeNumber[i] != 'L' and romeNumber[i] != 'C' and 
@@ -79,11 +80,12 @@ int main(){
             }
             
         }
-        if (F){
+        if (!F){
             if(validateRome(romeNumber)) {
                 break;
             }  
             else{
+                cout <<"Wrong number!" <<endl;
                 F = true;
             }
         }
@@ -91,23 +93,39 @@ int main(){
     }
     
     int arabNumber = 0;
-    for (int i = 0; i < romeNumber.length(); i--){
+    for (int i = 0; i < romeNumber.length(); i++){
         if (i == romeNumber.length() - 1){
-            arabNumber +=  romeToArab(romeNumber[i]);
+            //cout <<"last " <<romeToArab(romeNumber[i]) <<endl;
+            arabNumber += romeToArab(romeNumber[i]);
             continue;
         }
         int n1 = romeToArab(romeNumber[i]);
         int n2 = romeToArab(romeNumber[i+1]);
+        //cout <<romeNumber[i] <<" " <<arabNumber <<endl;
         if (n1 >= n2){
             arabNumber += n1;
             continue;
         }
-        if (n2 / n1 == 10 && isTen(n1) && isTen(n2)){
+        if (n2 / n1 == 10 && isTen(romeNumber[i]) && isTen(romeNumber[i+1])){
+            if(romeNumber.length() - i > 2){
+                //cout <<"CHECK " <<n2 / romeToArab(romeNumber[i+2]) <<endl; 
+                if (n2 / romeToArab(romeNumber[i+2]) < 20){
+                    cout <<"Wrong number!";
+                    return 0;
+                }
+            }
+            if (i > 0){
+                if (romeToArab(romeNumber[i+1]) > romeToArab(romeNumber[i-1])){
+                    cout <<"Wrong number!";
+                    return 0;
+                }    
+            }
             arabNumber += n2 - n1;
+            i++;
             continue;
         }
         cout <<"Wrong number!";
         return 0;
     }
-    cout <<arabNumber;
+    cout <<"ARAB: " <<arabNumber;
 }
