@@ -1,7 +1,14 @@
 #include <iostream>
-#include <cmath>
 #include <stdio.h>
-#include <string>
+
+using namespace std;
+
+bool isTen(char c){
+    if (c == 'I' || c == 'X' || c == 'C' || c == 'M'){
+        return true;    
+    }  
+    return false;
+}
 
 int romeToArab(char rome){
     if (rome == 'I'){
@@ -43,10 +50,10 @@ bool validateRome(string rome){
     
     
         if (same > 1){
-            if (same > 3 && isTem(sameC)){
+            if (same > 3 && isTen(sameC)){
                 return false;
             }    
-            if (same == 1 && !isTem(sameC)){
+            if (same == 1 && !isTen(sameC)){
                 return false;
             }
         }
@@ -54,16 +61,12 @@ bool validateRome(string rome){
     return true;
 }
 
-bool isTen(char c){
-    if (c == 'I' || c == 'X' || c == 'C' || c == 'M'){
-        return true;    
-    }    
-}
+
 
 int main(){
     bool F = true;
+    string romeNumber;
     while (F){
-        string romeNumber;
         cin >>romeNumber;
         for (int i = 0; i < romeNumber.length(); i++){
             if (romeNumber[i] != 'I' and romeNumber[i] != 'V' and romeNumber[i] != 'X' and romeNumber[i] != 'L' and romeNumber[i] != 'C' and 
@@ -71,7 +74,7 @@ int main(){
                 cout <<"wrong characters!" <<endl;
                 break;
             }
-            if i == romeNumber.length() - 1{
+            if (i == romeNumber.length() - 1){
                 F = false;    
             }
             
@@ -89,6 +92,10 @@ int main(){
     
     int arabNumber = 0;
     for (int i = 0; i < romeNumber.length(); i--){
+        if (i == romeNumber.length() - 1){
+            arabNumber +=  romeToArab(romeNumber[i]);
+            continue;
+        }
         int n1 = romeToArab(romeNumber[i]);
         int n2 = romeToArab(romeNumber[i+1]);
         if (n1 >= n2){
@@ -102,5 +109,5 @@ int main(){
         cout <<"Wrong number!";
         return 0;
     }
+    cout <<arabNumber;
 }
-
