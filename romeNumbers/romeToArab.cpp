@@ -28,12 +28,39 @@ int romeToArab(char rome){
     return  0;
 }
 
-string validateRome(string rome){
+bool validateRome(string rome){
+    int same = 1;
+    char sameC = rome[0];
     
+    for (int i = 1; i < rome.length(); i++){
+        if (sameC == rome[i]){
+            same++;
+        }
+        else{
+            same = 1;
+            sameC = rome[i];
+        }
+    
+    
+        if (same > 1){
+            if (same > 3 && isTem(sameC)){
+                return false;
+            }    
+            if (same == 1 && !isTem(sameC)){
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
-int main()
-{
+bool isTen(char c){
+    if (c == 'I' || c == 'X' || c == 'C' || c == 'M'){
+        return true;    
+    }    
+}
+
+int main(){
     bool F = true;
     while (F){
         string romeNumber;
@@ -49,13 +76,31 @@ int main()
             }
             
         }
+        if (F){
+            if(validateRome(romeNumber)) {
+                break;
+            }  
+            else{
+                F = true;
+            }
+        }
         
     }
     
     int arabNumber = 0;
-    for (int i = romeNumber.length() - 1; i > 0; i--){
+    for (int i = 0; i < romeNumber.length(); i--){
         int n1 = romeToArab(romeNumber[i]);
         int n2 = romeToArab(romeNumber[i+1]);
-        if (n1 >= n2)
+        if (n1 >= n2){
+            arabNumber += n1;
+            continue;
+        }
+        if (n2 / n1 == 10 && isTen(n1) && isTen(n2)){
+            arabNumber += n2 - n1;
+            continue;
+        }
+        cout <<"Wrong number!";
+        return 0;
     }
 }
+
