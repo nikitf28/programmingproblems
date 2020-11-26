@@ -1,16 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 
 using namespace std;
 
 int main(){
     int n;
     vector<int> x, y;
-    cin >>n;
+    while (!(cin >> n)){
+            cout << "error\n";
+            cin.clear();
+            fflush(stdin);
+    }
 
     for (int i = 0; i < n; i++){
+        //cout <<"CYC " <<i <<endl;
         int Xi, Yi;
-        cin >>Xi >>Yi;
+        while (!(cin >> Xi)){
+            cout << "error\n";
+            cin.clear();
+            fflush(stdin);
+        }
+        while (!(cin >> Yi)){
+                cout << "error\n";
+                cin.clear();
+                fflush(stdin);
+        }
         x.push_back(Xi);
         y.push_back(Yi);
     }
