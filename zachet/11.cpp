@@ -57,6 +57,11 @@ int main(){
     cin >>x2 >>y2;
 
     vector<vector<bool> > v;
+    v.resize(6);
+
+    for (int i = 0; i < 6; i++){
+        v[i].resize(6);
+    }
 
     vector<int> xWay, yWay;
 

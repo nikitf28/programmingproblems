@@ -1,8 +1,21 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
+
+struct Word{
+    string nW;
+    string oW;
+};
+
+bool operator<(Word w1, Word w2) {
+
+  return w1.nW < w2.nW;
+
+}
+
 
 string sortWord(string word){
     vector<char> wordChar;
@@ -10,13 +23,8 @@ string sortWord(string word){
         wordChar.push_back(word[i]);
     }
 
-    for (int i = 0; i < wordChar.size(); i++){
-        for (int j = 0; j < i; j++){
-            if (wordChar[i] < wordChar[j]){
-                swap(wordChar[i], wordChar[j]);
-            }
-        }
-    }
+    sort(wordChar.begin(), wordChar.end());
+
     string newWord = "";
     for (int i = 0; i < wordChar.size(); i++){
         newWord += char(wordChar[i]);
@@ -46,44 +54,38 @@ bool word1More2(string word1, string word2){
 }
 
 int main(){
-    vector<string> dictOrig, dictNew;
+    vector<Word> dict;
     int n;
     cin >>n;
+    dict.resize(n);
 
     for (int i = 0; i < n; i++){
         string word;
         cin >>word;
-        dictOrig.push_back(word);
-        dictNew.push_back(sortWord(word));
+        dict[i].oW = word;
+        dict[i].nW = sortWord(word);
     }
 
     for (int i = 0; i < n; i++){
-        for (int j = 0; j < i; j++){
-            if (word1More2(dictNew[i], dictNew[j])){
-                //cout <<dictOrig[i] <<" " <<dictOrig[j] <<endl;
-                //cout <<dictOrig[j] <<" " <<dictOrig[i] <<endl;
 
-                swap(dictNew[i], dictNew[j]);
-                swap(dictOrig[i], dictOrig[j]);
-            }
-        }
+        sort(dict.begin(), dict.end());
     }
 
     string nowWord = "";
     int beginOutput = 0;
     int counter = 1;
 
-    for (int i = 0; i < dictNew.size(); i++){
-        if (dictNew[i] != nowWord){
+    for (int i = 0; i < dict.size(); i++){
+        if (dict[i].nW != nowWord){
             //cout <<"NEWWORD!" <<endl;
             if (counter > 1){
                 for (int j = beginOutput; j < beginOutput + counter; j++){
-                    cout <<dictOrig[j] <<" ";
+                    cout <<dict[j].oW <<" ";
                 }
                 cout <<endl;
             }
             beginOutput = i;
-            nowWord = dictNew[i];
+            nowWord = dict[i].nW;
             counter = 1;
         }
         else{
@@ -93,7 +95,7 @@ int main(){
 
     if (counter > 1){
         for (int j = beginOutput; j < beginOutput + counter; j++){
-            cout <<dictOrig[j] <<" ";
+            cout <<dict[j].oW <<" ";
         }
         cout <<endl;
     }
