@@ -22,13 +22,17 @@ long long getNthNum(long long num, long long nth){
 int main(){
     long long k;
     cin >>k;
-
     long long sum = 0;
     long long i = 0;
     long long prev = 0;
 
+
     while (sum < k){
         i++;
+        if (i > 44721){
+            cout<<"TOO BIG!";
+            return 0;
+        }
         prev = sum;
         sum += countNum(i*i);
     }
