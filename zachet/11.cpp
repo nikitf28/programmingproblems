@@ -40,14 +40,21 @@ int ds(int x, int y, int en, int sum, vector<vector<bool> > visited, vector<int>
 
 int main(){
     cout <<"Insert field values: " <<endl;
+
+    vector<vector<bool> > v;
+    v.resize(6);
+
     for (int i = 0; i < 6; i++){
         vector<int> b;
+        vector<bool> vi;
         for (int j = 0; j < 6; j++){
             int a;
             cin >>a;
             b.push_back(a);
+            vi.push_back(false);
         }
         field.push_back(b);
+        v.push_back(vi);
     }
 
     cout <<"Insert A point" <<endl;
@@ -56,12 +63,6 @@ int main(){
     cout <<"Insert B point" <<endl;
     cin >>x2 >>y2;
 
-    vector<vector<bool> > v;
-    v.resize(6);
-
-    for (int i = 0; i < 6; i++){
-        v[i].resize(6);
-    }
 
     vector<int> xWay, yWay;
 
