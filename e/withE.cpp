@@ -33,11 +33,12 @@ int main(){
         for (int j = i - 9; j <= i; j++){
             strNum += e[j];
         }
-        cout <<i-8 <<". " <<strNum <<endl;
-        long long num = stoll(strNum);
-        if (num % 10 == 2 || num % 10 == 4 || num % 10 == 5 || num % 10 == 6 || num % 10 == 8 || num % 10 == 0){
+        int strSize = strNum.length();
+        if (strNum[strSize-1] == '2' || strNum[strSize-1] == '4' || strNum[strSize-1] == '5' || strNum[strSize-1] == '6' || strNum[strSize-1] == '8' || strNum[strSize-1] == '0'){
             continue;
         }
+        cout <<i-8 <<". " <<strNum <<endl;
+        long long num = stoll(strNum);
         if (!ifEasy(num)){
             cout <<"================" <<endl <<endl <<num;
             return 0;
