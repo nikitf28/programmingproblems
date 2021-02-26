@@ -35,6 +35,9 @@ int main(){
         }
         cout <<i-8 <<". " <<strNum <<endl;
         long long num = stoll(strNum);
+        if (num % 10 == 2 || num % 10 == 4 || num % 10 == 5 || num % 10 == 6 || num % 10 == 8 || num % 10 == 0){
+            continue;
+        }
         if (!ifEasy(num)){
             cout <<"================" <<endl <<endl <<num;
             return 0;
