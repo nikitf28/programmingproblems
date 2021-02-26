@@ -19,7 +19,13 @@ int main(){
     string e, buffer;
 
     while (fin >> buffer){
-        e += buffer;
+        string filtered = "";
+        for (int i = 0; i < buffer.length(); i++){
+            if (buffer[i] >= '0' && buffer[i] <= '9'){
+                filtered += buffer[i];
+            }
+        }
+        e += filtered;
     }
 
     for (int i = 9; i < e.length(); i++){
