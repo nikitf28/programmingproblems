@@ -1,7 +1,7 @@
 lines = []
 scenario = {}
 
-with open("sample2.txt", encoding='utf-8') as file:
+with open("roles.txt", encoding='utf-8') as file:
     lines = [row.strip() for row in file]
 
 mode = 0
@@ -9,7 +9,7 @@ counter = 0
 name = ''
 
 for line in lines:
-    print(line)
+    #print(line)
     if line == '﻿roles:':
         mode = 1
         continue
@@ -39,8 +39,10 @@ for line in lines:
                 continue
         scenario[name].append(newLine)
 
+
+file = open("scenario.txt", "w", encoding='utf-8')
 for name in scenario.keys():
-    print(name + ':')
+    file.write(name + ':' + '\n')
     for line in scenario[name]:
-        print(line)
-    print()
+        file.write(line + '\n')
+    file.write("======================\n")
