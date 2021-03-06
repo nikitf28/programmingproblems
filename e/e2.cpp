@@ -5,14 +5,6 @@
 
 using namespace std;
 
-bool ifEasy(long long num){
-    for (int i = 2; i < sqrt(num); i++){
-        if (num % i == 0){
-            return true;
-        }
-    }
-    return false;
-}
 
 int main(){
     ifstream fin("e2mil.txt");
@@ -28,21 +20,14 @@ int main(){
         e += filtered;
     }
 
-    for (int i = 9; i < e.length(); i++){
+    int factorial = 1;
+    for (int i = 0; i < 5; i++){
+        factorial*=(i+2);
+        cout <<factorial <<endl;
         string strNum = "";
-        for (int j = i - 9; j <= i; j++){
+        for (int j = factorial - 1; j < factorial + 9; j++){
             strNum += e[j];
         }
-        int strSize = strNum.length();
-
-        cout <<i-8 <<". " <<strNum;
-        if (strNum == "")
-        cout <<endl;
-        long long num = stoll(strNum);
-        if (!ifEasy(num)){
-            cout <<"================" <<endl <<endl <<num;
-            return 0;
-        }
+        cout <<i+1 <<". " <<strNum <<endl;
     }
-
 }
