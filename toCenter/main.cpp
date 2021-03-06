@@ -32,8 +32,9 @@ void centerText(vector<string> lines){
     for (int j = 0; j < lines.size(); j++){
         string line = cleanLine(lines[j]);
         int lngth = WIDTH - line.length();
+        //cout <<line.length();
         for (int i = 0; i < lngth/2; i++){
-            line = " " + line + " ";
+            line = " " + line;
         }
         cout <<line <<endl;
     }
@@ -60,6 +61,7 @@ void rightText(vector<string> lines){
 }
 
 int main(){
+    setlocale(LC_ALL, "Russian");
     ifstream cin("input.txt");
     ofstream cout("output.txt");
     string line;

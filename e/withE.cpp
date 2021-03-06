@@ -34,9 +34,9 @@ int main(){
             strNum += e[j];
         }
         int strSize = strNum.length();
-        if (strNum[strSize-1] == '2' || strNum[strSize-1] == '4' || strNum[strSize-1] == '5' || strNum[strSize-1] == '6' || strNum[strSize-1] == '8' || strNum[strSize-1] == '0'){
+        /*if (strNum[strSize-1] == '2' || strNum[strSize-1] == '4' || strNum[strSize-1] == '5' || strNum[strSize-1] == '6' || strNum[strSize-1] == '8' || strNum[strSize-1] == '0'){
             continue;
-        }
+        }*/
         cout <<i-8 <<". " <<strNum <<endl;
         long long num = stoll(strNum);
         if (!ifEasy(num)){
