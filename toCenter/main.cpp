@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include <fstream>
 
 using namespace std;
 
@@ -27,6 +28,7 @@ string cleanLine(string line){
 }
 
 void centerText(vector<string> lines){
+    ofstream cout("output.txt", ios::app);
     for (int j = 0; j < lines.size(); j++){
         string line = cleanLine(lines[j]);
         int lngth = WIDTH - line.length();
@@ -38,6 +40,7 @@ void centerText(vector<string> lines){
 }
 
 void leftText(vector<string> lines){
+    ofstream cout("output.txt", ios::app);
     for (int j = 0; j < lines.size(); j++){
         string line = cleanLine(lines[j]);
         cout <<line <<endl;
@@ -45,6 +48,7 @@ void leftText(vector<string> lines){
 }
 
 void rightText(vector<string> lines){
+    ofstream cout("output.txt", ios::app);
     for (int j = 0; j < lines.size(); j++){
         string line = cleanLine(lines[j]);
         int lngth = WIDTH - line.length();
@@ -56,6 +60,8 @@ void rightText(vector<string> lines){
 }
 
 int main(){
+    ifstream cin("input.txt");
+    ofstream cout("output.txt");
     string line;
     vector<string> lines;
     while (true){
