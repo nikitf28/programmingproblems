@@ -69,13 +69,9 @@ int main(){
     ifstream cin("input.txt");
     ofstream cout("output.txt");
 
-    void(*centerText)(string);
-    void(*leftText)(string);
-    void(*rightText)(string);
-
-
     string line;
     int step = 0;
+
     while (!cin.eof()){
         getline(cin, line);
         vector<string> lines = {line};
