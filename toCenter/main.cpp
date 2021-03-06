@@ -60,31 +60,27 @@ void rightText(vector<string> lines){
     }
 }
 
+void(*texts[])(vector<string>)={
+    leftText, centerText, rightText, centerText
+};
+
 int main(){
     setlocale(LC_ALL, "Russian");
     ifstream cin("input.txt");
     ofstream cout("output.txt");
+
+    void(*centerText)(string);
+    void(*leftText)(string);
+    void(*rightText)(string);
+
+
     string line;
     int step = 0;
-    while (true){
+    while (!cin.eof()){
         getline(cin, line);
-        if (line == "end"){
-            break;
-        }
-        vector<string> lines;
-        lines.push_back(line);
-        if (step % 4 == 0){
-            leftText(lines);
-        }
-        if (step % 4 == 1 || step % 4 == 3){
-            centerText(lines);
-        }
-        if (step % 4 == 2){
-            rightText(lines);
-        }
-        if (line == ""){
-            continue;
-        }
+        vector<string> lines = {line};
+        texts[step%4](lines);
+        if (line == "") continue;
         step++;
     }
 }
