@@ -65,17 +65,26 @@ int main(){
     ifstream cin("input.txt");
     ofstream cout("output.txt");
     string line;
-    vector<string> lines;
+    int step = 0;
     while (true){
         getline(cin, line);
         if (line == "end"){
             break;
         }
-
+        vector<string> lines;
         lines.push_back(line);
+        if (step % 4 == 0){
+            leftText(lines);
+        }
+        if (step % 4 == 1 || step % 4 == 3){
+            centerText(lines);
+        }
+        if (step % 4 == 2){
+            rightText(lines);
+        }
+        if (line == ""){
+            continue;
+        }
+        step++;
     }
-
-    centerText(lines);
-    leftText(lines);
-    rightText(lines);
 }
