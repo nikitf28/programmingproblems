@@ -1,3 +1,7 @@
+#include<iostream>
+
+using namespace std;
+
 void insertionSort(int *arr, int size){
     int buf;
     int i, j;
@@ -20,6 +24,7 @@ void heapSort(int *arr, int size){
             if (arr[left] > arr[largest]){
                 buf = arr[left];
                 arr[left] = arr[largest];
+                arr[largest]=buf;
                 flag = true;
             }
             if (right < i){
@@ -40,9 +45,13 @@ void heapSort(int *arr, int size){
                 sh = 0;
             }
         }
-        buf=arr[i-1];
-        arr[i-1]=arr[0];
-        arr[0]=buf;
+        buf = arr[i-1];
+        arr[i-1] = arr[0];
+
+        int largest, left, right;
+        for (int j = 0; j < i /2;){
+
+        }
     }
 }
 
@@ -69,4 +78,67 @@ void quickSort(int *arr, int first, int last){
         quickSort(arr, first, j);
     if (i < last)
         quickSort(arr, i, last);
+}
+
+void bucketSort(int *arr, int n){
+    int **b = new int*[n];
+    int *k = new int[n];
+    for (int i = 0; i < n; i++){
+        b[i] = new int[n];
+        k[i] = 0;
+    }
+
+    for (int i = 0; i < n; i++){
+        int x = arr[i] / 10;
+        b[x][k[x]++] = arr[i];
+    }
+
+    for (int i = 0; i < n; i++){
+        insertionSort(arr, k[i]-1);
+        //quickSort(b[i], 0, k[i] - 1);
+    }
+
+    int index = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < k[i]; j++)
+            arr[index++] = b[i][j];
+}
+
+void mergeSort(int arr[], int size){
+    int i, j, lbi, rbi, mi, lb, mb, rb;
+
+    for (i = 1; i < size; i*=2){
+        for (j = 0; j < size - 1; j+=2*i){
+            lbi = 0;
+            rbi = 0;
+            lb = j;
+            mb = j + i;
+            rb = j + 2 * i;
+            rb = (rb < size) ? rb : size;
+            int* sortedBlock = new int[rb - lb];
+            while (lb + lbi < mb && mb + rbi < rb){
+                if (arr[lb + lbi] < arr[mb + rbi]){
+                    sortedBlock[lbi+rbi] = arr[lb+lbi];
+                    lbi++;
+                }
+                else{
+                    sortedBlock[lbi+rbi] = arr[mb + rbi];
+                    rbi++;
+                }
+            }
+
+            while (lb + lbi < mb){
+                sortedBlock[lbi+rbi] = arr[lb+lbi];
+                lbi++;
+            }
+            while (mb + rbi < rb){
+                sortedBlock[lbi+rbi] = arr[mb + rbi];
+                rbi++;
+            }
+            for (mi = 0; mi < lbi+rbi; mi++){
+                arr[lb+mi] = sortedBlock[mi];
+            }
+            delete sortedBlock;
+        }
+    }
 }
