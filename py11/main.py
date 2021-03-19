@@ -38,7 +38,7 @@ class Vector():
         self.__y -= vector.__y
 
     def mul(self, vector):
-        return Vector(self.__x * vector.__x, self.__y * vector.__y)
+        return self.__x * vector.__x + self.__y * vector.__y
 
     def __str__(self):
         return "(%s, %s)\nLength: %s\nAngle: %s" % (self.__x, self.__y, self.__length, self.__angle)
@@ -46,12 +46,13 @@ class Vector():
 
 v1 = Vector(3, 5)
 v2 = Vector(2, 6)
-print(v1)
-print(v1.ge)
-print(v1.sum(v2))
+print(v1, end="\n\n")
+print(v1.getLength(), end="\n\n")
+print(v1.getAngle(), end="\n\n")
+print(v1.sum(v2), end="\n\n")
 v1.add(v2)
-print(v1)
-print(v1.sub(v2))
+print(v1, end="\n\n")
+print(v1.sub(v2), end="\n\n")
 v1.ded(v2)
-print(v2)
-print(v1.mul(v2))
+print(v1, end="\n\n")
+print(v1.mul(v2), end="\n\n")
