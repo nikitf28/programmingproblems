@@ -1,13 +1,11 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
-double pow(double x, int n){
+int fastPow(int x, int n){
     if (n == 0){
         return 1;
-    }
-    if (n < 0){
-        return pow(1/x, -n);
     }
     if (n % 2 == 0){
         return pow(x*x, n/2);
@@ -18,7 +16,13 @@ double pow(double x, int n){
 }
 
 int main(){
-    double x, n;
+    int x, n;
     cin >>x >>n;
-    cout <<pow(x, n);
+    int num = fastPow(x, abs(n));
+    if (n < 0){
+        cout <<1.0/num;
+    }
+    else{
+        cout <<num;
+    }
 }

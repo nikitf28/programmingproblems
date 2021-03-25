@@ -7,7 +7,12 @@ unsigned int factorial(unsigned int n){
         return 1;
     }
     else{
-        return n * factorial(n - 1);
+        unsigned int num = factorial(n - 1);
+        if (UINT_MAX / num < n){
+            //cout <<"bla" <<endl;
+            return 0;
+        }
+        return n * num;
     }
 }
 
@@ -16,6 +21,11 @@ int main(){
     cin >>n;
     if (n < 0){
         cout <<"Wrong number!" <<endl;
+        return 0;
+    }
+    int ans = factorial(n);
+    if (ans == 0){
+        cout <<"Too big!" <<endl;
         return 0;
     }
     cout <<factorial(n);
