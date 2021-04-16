@@ -57,6 +57,32 @@ def delElement(tree, point):
     else:
         tree[i] = None
 
+def recOutput(tree, i, answers, point):
+    if i * 2 + 1 < len(tree) - 1:
+        if tree[i * 2 + 1] != None:
+            answers.append(tree[i * 2 + 1])
+            print(tree[i * 2 + 1])
+            recOutput(tree, i * 2 + 1, answers)
+        else:
+            return answers
+    else:
+        return answers
+
+def findMoreThanN(tree, point):
+    answers = []
+    i = 1
+    deep = 0
+    while i <= len(tree) - 1:
+        if tree[i] == None:
+            break
+        if tree[i] == point:
+            return recOutput(tree, i, answers, point)
+        if tree[i] > point:
+            i *= 2
+        else:
+            i = i * 2 + 1
+        deep += 1
+    return []
 
 tree = []
 input_data = list(map(int, input().split()))
@@ -65,10 +91,5 @@ n = int(input())
 for el in input_data:
     addNewPoint(tree, el)
 
-print(findPoint(tree, n))
-
 print(tree)
-
-delElement(tree, int(input()))
-
-print(tree)
+print(findMoreThanN(tree, n))
