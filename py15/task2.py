@@ -61,7 +61,6 @@ def delElement(tree, point):
 tree = []
 input_data = list(map(int, input().split()))
 n = int(input())
-d = int(input())
 
 for el in input_data:
     addNewPoint(tree, el)
@@ -70,6 +69,6 @@ print(findPoint(tree, n))
 
 print(tree)
 
-delElement(tree, d)
+delElement(tree, int(input()))
 
 print(tree)
