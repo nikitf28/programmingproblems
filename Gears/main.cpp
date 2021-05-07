@@ -4,11 +4,18 @@
 #include <string>
 #include <cmath>
 
+#define PI 3.14159265
+
 using namespace std;
 
 struct point{
     int x = 0, y = 0;
     int minX = 999999, minY = 999999, maxX = 0, maxY = 0;
+};
+
+struct radiuses{
+    int inner = 0;
+    int outter = 0;
 };
 
 point findCenter(vector<vector<short> > &data, int width, int height){
@@ -63,27 +70,17 @@ point findCenter(vector<vector<short> > &data, int width, int height){
 
 }
 
-void paintCenter(vector<vector<short> > &data, point p){
-    for (int i = p.minY; i <= p.maxY; i++){
-        for (int j = p.minX; j <= p.maxX; j++){
-            if (data[j][i] == 0){
-                data[j][i] = 2;
-            }
-        }
-    }
-
-}
-
-int findRecord(vector<vector<short> > &data, point p, int width, int height){
+radiuses findRecord(vector<vector<short> > &data, point p, int width, int height){
     int xr, yr, cx = p.x, cy = p.y;
     xr = max(cx - p.minX, p.maxX - cx) + 50;
     yr = max(cy - p.minY, p.maxY - cy) + 50;
     int R = max(xr, yr);
     int innerR = 0, outterR = 0;
+    bool innerF = true;
     while (R < min(width/2, height/2)){
         //cout <<R <<endl;
+        bool noZero = true;
         for (int x = -width/2 + 100; x < width/2 - 100; x++){
-
             if (R*R - x*x < 0){
                 continue;
             }
@@ -91,38 +88,64 @@ int findRecord(vector<vector<short> > &data, point p, int width, int height){
             int y2 = -sqrt(R*R - x*x);
             //cout <<x + cx <<" " <<y1 + cy <<" " <<y2 + cy <<endl;
             //cout <<data[x + cx][y1 + cy] <<" " <<data[x + cx][y2 + cy] <<endl;
-            if (data[x + cx][y1 + cy] == 0 || data[x + cx][y2 + cy] == 0){
-                innerR = R;
-                return innerR;
-                cout <<R <<endl;
-                break;
+            if (innerF){
+                if (data[x + cx][y1 + cy] == 0 || data[x + cx][y2 + cy] == 0){
+                    innerR = R;
+                    innerF = false;
+                    continue;
+                }
             }
+            else{
+                if (data[x + cx][y1 + cy] == 0 || data[x + cx][y2 + cy] == 0){
+                    noZero = false;
+                }
+            }
+        }
+        if (noZero && !innerF){
+            outterR = R;
+            break;
         }
         R++;
     }
+    radiuses r;
+    r.inner = innerR;
+    r.outter = outterR;
+    return r;
 }
 
-void drawCircle(vector<vector<short> > &data, int R, int width, point p){
-    for (int x = -width/2 + 100; x < width/2 - 100; x++){
+void burnData2(vector<vector<short> > &data, int R1, int R2, point p, int width, int height, string toWrite){
+    for (int i = 0; i < height; i++){
+        for (int j = 0; j < width; j++){
+            int x = j - p.x;
+            int y = p.y - i;
+            int r = sqrt(x*x + y*y);
+            //cout <<x <<" " <<y <<" "  <<r <<endl;
+            if (r >= R1 && r <= R2){
+                int angle = atan2(y, x) * 180.0 / PI;
+                if (angle < 0){
+                    angle += 360;
+                }
+                //cout <<angle <<endl;
+                int index = toWrite.length() * angle * 1.0 / 360;
+                int write = 0;
+                if (toWrite[index] == '0'){
+                    write = 1;
+                }
+                int cx = p.x, cy = p.y;
+                data[i][j] = write;
 
-        if (R*R - x*x < 0){
-            continue;
+            }
         }
-        int y1 = sqrt(R*R - x*x);
-        int y2 = -sqrt(R*R - x*x);
-        //cout <<x + cx <<" " <<y1 + cy <<" " <<y2 + cy <<endl;
-        //cout <<data[x + cx][y1 + cy] <<" " <<data[x + cx][y2 + cy] <<endl;
-        int cx = p.x, cy = p.y;
-        data[x + cx][y1 + cy] = 4;
-        data[x + cx][y2 + cy] = 4;
     }
 }
+
 
 int main()
 {
     vector<vector<short> > data;
     ifstream cin("input.txt");
     ofstream fout("output.txt");
+    string toWrite = "10110010100101111110000";
     int a, n, m, b;
     cin >>a >>n >>m >>b;
     for (int i = 0; i < n; i++){
@@ -140,10 +163,11 @@ int main()
         data.push_back(data_line);
     }
     point p = findCenter(data, m, n);
-    paintCenter(data, p);
-    int R = findRecord(data, p, n, m);
-    drawCircle(data, R, n, p);
-    cout <<p.minX <<" " <<p.maxX <<" " <<p.minY <<" " <<p.maxY <<endl;
+    //paintCenter(data, p);
+    radiuses r = findRecord(data, p, n, m);
+    cout <<endl <<"Radiuses: " <<r.inner <<" " <<r.outter <<endl;
+    burnData2(data, r.inner, r.outter, p, n, m, "0");
+    burnData2(data, r.inner, r.outter, p, n, m, toWrite);
     for(int i = 0; i < n; i++){
         for (int j = 0; j < m; j++){
             fout <<data[i][j];
