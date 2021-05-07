@@ -87,7 +87,7 @@ int main(){
         cin >> s;
         for (int i = 0; i < s.length(); i++){
             EncodedChar info = encode(s[i]);
-            cout <<info.c2 <<" " <<info.c1 <<endl;
+            cout <<info.c2 <<info.c1;
         }
     }
     else if (choose == 2){
@@ -101,7 +101,7 @@ int main(){
             EncodedChar info;
             info.c2 = s[i];
             info.c1 = s[i + 1];
-            cout <<decode(info) <<endl;
+            cout <<decode(info);
         }
     }
 }
