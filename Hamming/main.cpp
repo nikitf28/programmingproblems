@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -78,30 +79,59 @@ unsigned char decode(EncodedChar info){
     return c;
 }
 
+string toHex(int n) {
+   string a[16] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+   return a[n/16] + a[n%16];
+}
+
+int hexToNum(string hexNum){
+    int ans = 0;
+    if (hexNum[0] >= '0' && hexNum[0] <= '9'){
+        ans += hexNum[0] - '0';
+    }
+    else if (hexNum[0] >= 'A' && hexNum[0] <= 'F'){
+        ans += hexNum[0] - 'A' + 10;
+    }
+    if (hexNum[1] >= '0' && hexNum[1] <= '9'){
+        ans += (hexNum[1] - '0')*16;
+    }
+    else if (hexNum[1] >= 'A' && hexNum[1] <= 'F'){
+        ans += (hexNum[1] - 'A' + 10)*16;
+    }
+    return ans;
+}
+
 int main(){
+    ifstream fin("input.txt");
+    ofstream fout("output.txt");
     cout <<"1 - encode \n2 - decode\n";
     int choose;
-    cin >>choose;
+    fin >>choose;
     if (choose == 1){
         string s;
-        cin >> s;
+        fin >> s;
         for (int i = 0; i < s.length(); i++){
             EncodedChar info = encode(s[i]);
-            cout <<info.c2 <<info.c1;
+            fout <<toHex(info.c2) <<toHex(info.c1);
         }
     }
     else if (choose == 2){
         string s;
-        cin >> s;
-        if (s.length() % 2 != 0){
-            cout <<"Wrong length!";
+        fin >> s;
+        if (s.length() % 4 != 0){
+            fout <<"Wrong length!";
             return 0;
         }
-        for (int i = 0; i < s.length(); i+=2){
+        for (int i = 0; i < s.length(); i+=4){
             EncodedChar info;
-            info.c2 = s[i];
-            info.c1 = s[i + 1];
-            cout <<decode(info);
+            string s1(1, s[i]);
+            string s2(1, s[i + 1]);
+            string s3(1, s[i + 2]);
+            string s4(1, s[i + 3]);
+
+            info.c2 = hexToNum(s2 + s1);
+            info.c1 = hexToNum(s4 + s3);
+            fout <<decode(info);
         }
     }
 }
