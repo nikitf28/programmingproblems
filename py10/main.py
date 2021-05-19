@@ -1,6 +1,2 @@
-import time
-import sys
+import requests
 
-for i in range(101):
-    sys.stdout.write('%d\r' % i)
-    time.sleep(1)

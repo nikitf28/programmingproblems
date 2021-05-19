@@ -13,6 +13,18 @@ def addT(value, m):
     table = [value, hashT(value, m)] + table
     
 def delT(value, m):
-    hashed = hasgT(value, m)
+    global table
+    hashed = hashT(value, m)
     for i in range(len(table)):
-        if 
+        if table[i][1] == hashed:
+            table.pop(i)
+
+def findT(value, m):
+    global table
+    hashed = hashT(value, m)
+    for i in range(len(table)):
+        if table[i][1] == hashed:
+            print("yes")
+            return
+    print("no")
+
