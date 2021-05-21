@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/programming-tasks.iml" filepath="$PROJECT_DIR$/.idea/programming-tasks.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/programmingTasks.iml" filepath="$PROJECT_DIR$/.idea/programmingTasks.iml" />
+>>>>>>> 4f4c0ac6e5295f6fb63824b732d611948d8568d5
     </modules>
   </component>
 </project>
