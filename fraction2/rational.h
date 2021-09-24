@@ -3,11 +3,7 @@
 #include <iostream>
 using namespace std;
 class Rational{
-public:
-    int numer, denom;
-    Rational();
-    Rational(int number);
-    Rational(int n, int d);
+
     Rational& operator =(const Rational& r);
     Rational& operator +=(const Rational& r);
     Rational& operator +(const Rational& r) const;
@@ -36,7 +32,14 @@ public:
 
     friend istream& operator >>(istream& in, Rational& r);
     friend ostream& operator << (ostream& out, const Rational& r);
+    int numer, denom;
 
     void simplify();
+public:
+    Rational(Rational const &r);
+    Rational();
+    Rational(int number);
+    Rational(int n, int d);
+    Rational sqrtR();
 };
 #endif // RATIONAL_H_INCLUDED

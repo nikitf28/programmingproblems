@@ -4,6 +4,11 @@
 
 using namespace std;
 
+Rational::Rational(Rational const &r) {
+    this -> numer = r.numer;
+    this -> denom = r.denom;
+}
+
 Rational::Rational(){
     this -> numer = 0;
     this -> denom = 1;
@@ -17,9 +22,19 @@ Rational::Rational(int number){
 }
 
 Rational::Rational(int n, int d){
+    std::cout<<"RATIONAL";
     this -> numer = n;
     this -> denom = d;
     simplify();
+}
+
+Rational& Rational::operator =(const Rational& r){
+    if (this == &r) {
+        return *this;
+    }
+    numer = r.numer;
+    denom = r.denom;
+    return *this;
 }
 
 Rational& Rational::operator +=(const Rational& r){
@@ -137,6 +152,7 @@ ostream& operator <<(ostream& out, const Rational& r){
 }
 
 void Rational::simplify(){
+    std::cout <<"SIMPLY________-";
     if (denom < 0){
         numer = -numer;
         denom = -denom;
@@ -146,15 +162,28 @@ void Rational::simplify(){
     }
 
     int n = numer, d = denom;
+    std::cout <<n <<" " <<d <<std::endl;
     while (abs(abs(n) - abs(d)) > 1){
-        if (abs(n) >= abs(d)){
+        if (abs(n) > abs(d)){
             n = abs(n) % d + d;
         }
         else{
-            d = d % abs(n) + n;
+            d = d % abs(n) + abs(n);
         }
+        std::cout <<n <<" " <<d <<std::endl;
     }
     numer /= n;
     denom /= d;
 }
 
+Rational Rational::sqrtR(){
+    std::cout <<"STARTING SQRT";
+    Rational xn(numer, denom);
+    Rational a(xn);
+    std::cout <<"STARTING SQRT";
+    for (int i = 0; i < 10; i++){
+        std::cout <<"DELENIE";
+        xn = Rational(1, 2) * (xn + a / xn);
+    }
+    return xn;
+}

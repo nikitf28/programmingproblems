@@ -5,7 +5,8 @@ using namespace std;
 
 int main()
 {
-    Rational a(-16,4), b(0, 1);
-    //b = a;
-    cout <<a <<" " <<b;
+    cout <<"bla1" <<endl;
+    Rational a(25, 4);
+    cout <<"bla2" <<endl;
+    cout <<a.sqrtR();
 }
