@@ -5,6 +5,7 @@ using namespace std;
 
 int main()
 {
-    Rational a(-1,2), b(1,2);
-    cout <<(a>b) <<" " <<(a<b);
+    Rational a(-16,4), b(0, 1);
+    //b = a;
+    cout <<a <<" " <<b;
 }

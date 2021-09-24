@@ -141,12 +141,20 @@ void Rational::simplify(){
         numer = -numer;
         denom = -denom;
     }
-    for (int i = 2; i <= abs(denom) && i <= abs(numer); i++){
-        if (numer % i == 0 && denom % i == 0){
-            numer /= i;
-            denom /= i;
-            i--;
+    if (numer == 0){
+        return;
+    }
+
+    int n = numer, d = denom;
+    while (abs(abs(n) - abs(d)) > 1){
+        if (abs(n) >= abs(d)){
+            n = abs(n) % d + d;
+        }
+        else{
+            d = d % abs(n) + n;
         }
     }
+    numer /= n;
+    denom /= d;
 }
 
