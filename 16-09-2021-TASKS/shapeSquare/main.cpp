@@ -9,9 +9,9 @@ struct Points {
     int y;
 };
 
-int main() {
+int main(int argc, char* argv[]) {
     ifstream fin;
-    fin.open("granitsy-uchastka2.txt");
+    fin.open(argv[1]);
     vector<Points> points;
 
     int N;
