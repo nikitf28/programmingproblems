@@ -4,6 +4,8 @@
 using namespace std;
 class Rational{
 
+public:
+
     Rational& operator =(const Rational& r);
     Rational& operator +=(const Rational& r);
     Rational& operator +(const Rational& r) const;
@@ -35,7 +37,7 @@ class Rational{
     int numer, denom;
 
     void simplify();
-public:
+
     Rational(Rational const &r);
     Rational();
     Rational(int number);

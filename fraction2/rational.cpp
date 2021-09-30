@@ -38,8 +38,10 @@ Rational& Rational::operator =(const Rational& r){
 }
 
 Rational& Rational::operator +=(const Rational& r){
+    std::cout <<"numer " <<numer <<" denom" <<denom <<std::endl;
     numer = (numer*r.denom+denom*r.numer);
     denom *= r.denom;
+    std::cout <<"numer " <<numer <<" denom" <<denom <<std::endl;
     simplify();
     return *this;
 }
@@ -152,7 +154,7 @@ ostream& operator <<(ostream& out, const Rational& r){
 }
 
 void Rational::simplify(){
-    std::cout <<"SIMPLY________-";
+    //std::cout <<"SIMPLY________-";
     if (denom < 0){
         numer = -numer;
         denom = -denom;
@@ -162,28 +164,33 @@ void Rational::simplify(){
     }
 
     int n = numer, d = denom;
-    std::cout <<n <<" " <<d <<std::endl;
-    while (abs(abs(n) - abs(d)) > 1){
+    //std::cout <<n <<" " <<d <<std::endl;
+    while (abs(abs(n) - abs(d)) > 0){
         if (abs(n) > abs(d)){
-            n = abs(n) % d + d;
+            n = abs(n) - d;
         }
         else{
-            d = d % abs(n) + abs(n);
+
+            d = d - abs(n);
         }
-        std::cout <<n <<" " <<d <<std::endl;
+        //std::cout <<n <<" " <<d <<std::endl;
     }
-    numer /= n;
-    denom /= d;
+    numer /= max(n, d);
+    denom /= max(n, d);
+    std::cout <<"SIMPLIFIER NUMER " <<numer <<" DENOM " <<denom <<std::endl;
 }
 
 Rational Rational::sqrtR(){
-    std::cout <<"STARTING SQRT";
+    //std::cout <<"STARTING SQRT " <<numer <<" " <<denom <<endl;
     Rational xn(numer, denom);
     Rational a(xn);
-    std::cout <<"STARTING SQRT";
+    cout <<"a and xn: " <<a <<" " <<xn <<std::endl;
+    //std::cout <<"STARTING SQRT";
     for (int i = 0; i < 10; i++){
-        std::cout <<"DELENIE";
+        //std::cout <<"DELENIE";
+        std::cout <<"a / xn  " <<a / xn <<std::endl;
         xn = Rational(1, 2) * (xn + a / xn);
+        std::cout <<xn <<std::endl;
     }
     return xn;
 }
