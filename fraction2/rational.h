@@ -4,18 +4,21 @@
 using namespace std;
 class Rational{
 
+    void simplify();
+    int NOD(int a, int b);
+
 public:
 
-    Rational& operator =(const Rational& r);
-    Rational& operator +=(const Rational& r);
-    Rational& operator +(const Rational& r) const;
-    Rational& operator -(const Rational& r) const;
+    Rational operator =(const Rational& r);
+    Rational operator +=(const Rational& r);
+    Rational operator +(const Rational& r) const;
+    Rational operator -(const Rational& r) const;
     Rational operator -() const;
-    Rational& operator -=(const Rational& r);
-    Rational& operator *=(const Rational& r);
-    Rational& operator *(const Rational& r) const;
-    Rational& operator /=(const Rational& r);
-    Rational& operator /(const Rational& r) const;
+    Rational operator -=(const Rational& r);
+    Rational operator *=(const Rational& r);
+    Rational operator *(const Rational& r) const;
+    Rational operator /=(const Rational& r);
+    Rational operator /(const Rational& r) const;
 
     Rational& operator ++();
     Rational operator ++(int);
@@ -36,12 +39,14 @@ public:
     friend ostream& operator << (ostream& out, const Rational& r);
     int numer, denom;
 
-    void simplify();
+    double toDouble();
 
     Rational(Rational const &r);
     Rational();
     Rational(int number);
     Rational(int n, int d);
     Rational sqrtR();
+
+
 };
 #endif // RATIONAL_H_INCLUDED

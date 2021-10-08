@@ -1,6 +1,7 @@
 #include <cmath>
 #include "rational.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,13 +23,13 @@ Rational::Rational(int number){
 }
 
 Rational::Rational(int n, int d){
-    std::cout<<"RATIONAL";
+    //std::cout<<"RATIONAL";
     this -> numer = n;
     this -> denom = d;
     simplify();
 }
 
-Rational& Rational::operator =(const Rational& r){
+Rational Rational::operator =(const Rational& r){
     if (this == &r) {
         return *this;
     }
@@ -37,16 +38,16 @@ Rational& Rational::operator =(const Rational& r){
     return *this;
 }
 
-Rational& Rational::operator +=(const Rational& r){
-    std::cout <<"numer " <<numer <<" denom" <<denom <<std::endl;
+Rational Rational::operator +=(const Rational& r){
+    //std::cout <<"numer " <<numer <<" denom" <<denom <<std::endl;
     numer = (numer*r.denom+denom*r.numer);
     denom *= r.denom;
-    std::cout <<"numer " <<numer <<" denom" <<denom <<std::endl;
+    //std::cout <<"numer " <<numer <<" denom" <<denom <<std::endl;
     simplify();
     return *this;
 }
 
-Rational& Rational::operator +(const Rational& r) const{
+Rational Rational::operator +(const Rational& r) const{
     Rational res(*this);
     return res += r;
 }
@@ -56,36 +57,36 @@ Rational Rational::operator -() const{
     return r;
 }
 
-Rational& Rational::operator -=(const Rational& r){
+Rational Rational::operator -=(const Rational& r){
     return (*this += (-r));
 }
 
 
-Rational& Rational::operator -(const Rational& r) const{
+Rational Rational::operator -(const Rational& r) const{
     Rational res(*this);
     return res -= r;
 }
 
-Rational& Rational::operator *=(const Rational& r){
+Rational Rational::operator *=(const Rational& r){
     numer = numer * r.numer;
     denom = denom * r.denom;
     simplify();
     return *this;
 }
 
-Rational& Rational::operator *(const Rational& r) const{
+Rational Rational::operator *(const Rational& r) const{
     Rational res(*this);
     return res *= r;
 }
 
-Rational& Rational::operator /=(const Rational& r){
+Rational Rational::operator /=(const Rational& r){
     numer = numer * r.denom;
     denom = denom * r.numer;
     simplify();
     return *this;
 }
 
-Rational& Rational::operator /(const Rational& r) const{
+Rational Rational::operator /(const Rational& r) const{
     Rational res(*this);
     return res /= r;
 }
@@ -153,6 +154,27 @@ ostream& operator <<(ostream& out, const Rational& r){
     return out;
 }
 
+
+double Rational::toDouble(){
+    return numer*1.0/denom;
+}
+
+int Rational::NOD(int a, int b){
+    //std::cout <<a <<" " <<b <<std::endl;
+    if (a < 0 || b < 0){
+        return 1;
+    }
+    if (a == 0 || b == 0){
+        return a+b;
+    }
+    if (a > b){
+        return NOD(a % b, b);
+    }
+    else{
+        return NOD(a, b % a);
+    }
+}
+
 void Rational::simplify(){
     //std::cout <<"SIMPLY________-";
     if (denom < 0){
@@ -163,34 +185,27 @@ void Rational::simplify(){
         return;
     }
 
-    int n = numer, d = denom;
-    //std::cout <<n <<" " <<d <<std::endl;
-    while (abs(abs(n) - abs(d)) > 0){
-        if (abs(n) > abs(d)){
-            n = abs(n) - d;
-        }
-        else{
-
-            d = d - abs(n);
-        }
-        //std::cout <<n <<" " <<d <<std::endl;
-    }
-    numer /= max(n, d);
-    denom /= max(n, d);
-    std::cout <<"SIMPLIFIER NUMER " <<numer <<" DENOM " <<denom <<std::endl;
+    int nod = NOD(numer, denom);
+    numer /= nod;
+    denom /= nod;
+    //std::cout <<"SIMPLIFIER NUMER " <<numer <<" DENOM " <<denom <<std::endl;
 }
 
 Rational Rational::sqrtR(){
-    //std::cout <<"STARTING SQRT " <<numer <<" " <<denom <<endl;
+    std::cout <<"STARTING SQRT " <<numer <<" " <<denom <<std::endl;
     Rational xn(numer, denom);
-    Rational a(xn);
-    cout <<"a and xn: " <<a <<" " <<xn <<std::endl;
-    //std::cout <<"STARTING SQRT";
-    for (int i = 0; i < 10; i++){
-        //std::cout <<"DELENIE";
-        std::cout <<"a / xn  " <<a / xn <<std::endl;
-        xn = Rational(1, 2) * (xn + a / xn);
-        std::cout <<xn <<std::endl;
+    Rational a(numer, denom);
+    Rational diff, prevdiff = xn;
+    for (int i = 0; i < 7; i++){
+        Rational newxn = Rational(1, 2) * (xn + a / xn);
+        diff = xn - newxn;
+        std::cout <<prevdiff <<" " <<diff <<" " <<prevdiff-diff <<std::endl;
+        if (prevdiff - diff < Rational(0)){
+            break;
+        }
+        else{
+            xn = newxn;
+        }
     }
     return xn;
 }
