@@ -192,20 +192,18 @@ void Rational::simplify(){
 }
 
 Rational Rational::sqrtR(){
-    std::cout <<"STARTING SQRT " <<numer <<" " <<denom <<std::endl;
+    //std::cout <<"STARTING SQRT " <<numer <<" " <<denom <<std::endl;
     Rational xn(numer, denom);
     Rational a(numer, denom);
-    Rational diff, prevdiff = xn;
-    for (int i = 0; i < 7; i++){
-        Rational newxn = Rational(1, 2) * (xn + a / xn);
-        diff = xn - newxn;
-        std::cout <<prevdiff <<" " <<diff <<" " <<prevdiff-diff <<std::endl;
-        if (prevdiff - diff < Rational(0)){
+    //Rational diff, prevdiff = xn;
+    for (int i = 0; i < 20; i++){
+        //std::cout <<Rational(INT32_MAX) <<std::endl;
+        if (INT32_MAX/Rational(a/xn).numer < xn.denom){
+            //std::cout <<INT32_MAX/Rational(a/xn).numer <<" " <<xn.denom <<std::endl;
             break;
         }
-        else{
-            xn = newxn;
-        }
+        //std::cout <<xn <<" _____________________" <<xn.toDouble() <<std::endl;
+        xn = Rational(1, 2) * (xn + a / xn);
     }
     return xn;
 }

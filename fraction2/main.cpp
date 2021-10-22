@@ -6,10 +6,17 @@ using namespace std;
 
 int main()
 {
-    cout <<"bla1" <<endl;
-    Rational a(25, 1);
-    cout <<a <<endl;
-    Rational b = a.sqrtR();
-    cout <<b <<endl;
-    cout <<setprecision(5) <<fixed <<b.toDouble() <<endl;
+    Rational r;
+    cin >>r;
+    cout <<r.sqrtR() <<" " <<r.sqrtR().toDouble();
+    /*
+    Rational a(2);
+    Rational b(7);
+    Rational c(-4);
+    Rational D = (b*b) - Rational(4)*a*c;
+    cout <<D.sqrtR().toDouble() <<" DESC" <<endl;
+    Rational x1 = (-b - D.sqrtR())/Rational(2);
+    Rational x2 = (-b + D.sqrtR())/Rational(2);
+    cout <<x1 <<" " <<x2 <<endl;
+    cout <<setprecision(5) <<fixed <<x1.toDouble() <<" " <<x2.toDouble() <<endl;*/
 }
