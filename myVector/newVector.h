@@ -17,18 +17,25 @@ public:
     int size;
     int capacity;
 
+    NewVector(const NewVector& newVector);
     explicit NewVector(int startCapacity = DEFAULT_CAPACITY);
     ~NewVector();
 
     int insert(int elem);
 
-    int insert(int elem, int index);
+    int insert(int index, int elem);
+
+    void remove(int index);
+
+    int getSize();
 
     int& operator[] (int index);
 
     int expland();
 
     friend ostream& operator << (ostream& out, const NewVector& v);
+    NewVector& operator = (const NewVector& newVector);
+
 };
 
 #endif //MYVECTOR_NEWVECTOR_H

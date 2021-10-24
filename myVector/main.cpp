@@ -3,11 +3,20 @@
 
 int main() {
     NewVector v = NewVector(10);
-    for (int i = 0; i < 130; i++) {
-        v.insert(i);
+    for (int i = 0; i < 10; i++) {
+        v.insert(i*10);
     }
-
-    cout <<v <<" " << v.size <<endl;
-    v[10] = 9999999;
-    cout <<v[10] <<" " <<v[11] <<endl;
+    NewVector v2(v);
+    NewVector v3 = v2;
+    v.insert(111);
+    v.insert(2, 200);
+    v.remove(5);
+    v.remove(5);
+    v.remove(5);
+    v.remove(5);
+    cout <<v <<endl;
+    cout <<v2 <<endl;
+    v3[0] = 999999;
+    cout <<v3 <<endl;
+    cout <<v.getSize() <<endl;
 }
