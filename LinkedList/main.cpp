@@ -25,7 +25,7 @@ int main() {
             }
         }
         LinkedListElem<int>* temp;
-        if (ptr->getNext() == 0){
+        if (ptr->getNext() == 0 || k == 1){
             temp = list.getStart()->getNext();
             list.deleteFirst();
         }
