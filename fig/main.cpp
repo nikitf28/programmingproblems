@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Figure.h"
+#include "figure_lib/Figure.h"
 #include <vector>
 
 int main() {
