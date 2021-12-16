@@ -6,25 +6,11 @@
 #define GRAPH_GRAPH_H
 
 #include <string>
+#include <set>
 
 using namespace std;
 
 typedef set<Node*>::const_iterator node_iterator;
-
-class Graph {
-    set<Node*> nodes;
-public:
-    void addNode(Node* node);
-    void removeNode(Node* node);
-    void addEdge(Node* begin, Node* end);
-    void removeEdge(Node* begin, Node* end);
-    node_iterator begin() const {
-        return nodes.begin();
-    }
-    node_iterator end() const {
-        return nodes.end();
-    }
-};
 
 class Node{
     string name;
@@ -44,6 +30,23 @@ public:
     }
     friend class Graph;
 };
+
+class Graph {
+    set<Node*> nodes;
+public:
+    void addNode(Node* node);
+    void removeNode(Node* node);
+    void addEdge(Node* begin, Node* end);
+    void removeEdge(Node* begin, Node* end);
+    node_iterator begin() const {
+        return nodes.begin();
+    }
+    node_iterator end() const {
+        return nodes.end();
+    }
+};
+
+
 
 
 #endif //GRAPH_GRAPH_H

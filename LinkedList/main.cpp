@@ -14,27 +14,44 @@ int main() {
     }
 
     ptr = list.getStart();
+
+    int i = 0;
     while (list.getSize() > 1){
-        for (int i = 0; i < k - 2; i++){
-            //cout <<ptr->getData() <<" " <<ptr->getNext()->getData() <<endl;
-            if (!ptr->getNext()){
-                ptr = list.getStart();
+        if (k == 1){
+            cout <<"Survived: " <<n <<endl;
+            return 0;
+        }
+        //cout <<list <<" i=" <<i <<endl;
+        i++;
+        LinkedListElem<int>* next;
+        if (i % k == k-1){
+            if (ptr->getNext() == 0){
+                next = list.getStart()->getNext();
+                //cout <<"DELETE " <<list.getStart()->getData() <<endl;
+                list.deleteFirst();
             }
             else{
-                ptr = ptr->getNext();
+                next = ptr->getNext()->getNext();
+                //cout <<"DELETE "  <<ptr->getNext()->getData() <<endl;
+                list.deleteAfter(ptr);
             }
-        }
-        LinkedListElem<int>* temp;
-        if (ptr->getNext() == 0 || k == 1){
-            temp = list.getStart()->getNext();
-            list.deleteFirst();
+            i++;
         }
         else{
-            temp = ptr->getNext()->getNext();
-            list.deleteAfter(ptr);
+            if (ptr->getNext() == 0){
+                next = list.getStart();
+            }
+            else{
+                next = ptr->getNext();
+            }
         }
-        ptr = temp;
+        if (next == 0){
+            ptr = list.getStart();
+        }
+        else{
+            ptr = next;
+        }
 
     }
-    cout <<list.getStart()->getData();
+    cout <<"Survived: " <<list.getStart()->getData();
 }
