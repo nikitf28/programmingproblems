@@ -12,25 +12,38 @@ using namespace std;
 class MatrixException{};
 
 class Matrix {
-public:
-    int** ptr;
+private:
     int sizeX;
     int sizeY;
+    double** ptr;
+public:
 
     Matrix(int x, int y);
-    Matrix(int x, int y, int **arr);
+    Matrix(int x, int y, double **arr);
     ~Matrix();
-    void setSize(int x, int y);
+    void setSize(int y, int x);
 
-    int get(int x, int y);
-    void set(int x, int y, int val);
+    double get(int y, int x);
+    void set(int y, int x, double val);
+    int getSizeX();
+    int getSizeY();
 
+    static int multyply_cell(int x, int y, Matrix m1, Matrix m2);
 
-    friend ostream& operator << (ostream& out, const Matrix& v);
+    friend ostream& operator << (ostream& out, Matrix v);
 
-    Matrix operator =(const Matrix& m);
+    Matrix operator =(Matrix m);
 
-    friend Matrix operator +(const Matrix& m1, const Matrix& m2);
+    friend Matrix operator +(Matrix m1, Matrix m2);
+    friend Matrix operator -(Matrix m1, Matrix m2);
+    friend Matrix operator *(double num, Matrix m1);
+    friend Matrix operator *(Matrix m1, double num);
+    friend Matrix operator *(Matrix m1, Matrix m2);
+
+    double det();
+    Matrix minor(int y, int x, int size);
+    Matrix rev();
+    Matrix transpanent();
 };
 
 
